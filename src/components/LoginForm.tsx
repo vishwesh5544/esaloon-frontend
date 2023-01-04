@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {User} from "../models/User";
 import {useNavigate} from "react-router-dom";
 import {UserApi} from "../api/user";
+import {toast} from "react-toastify";
 
 function LoginForm() {
     // variables
@@ -12,16 +13,22 @@ function LoginForm() {
 
     // methods
     const onSubmit = () => {
-        console.log(`userDetails -> ${loginDetails.fullName}`);
 
-        navigate("/dashboard");
-
-        // userApi.signUp(loginDetails).then().catch();
+        userApi.login(loginDetails).then((response) => {
+            console.log(response.data);
+            localStorage.setItem("token", response.data["response"]["token"]);
+            localStorage.setItem("email", response.data["response"]["email"]);
+            localStorage.setItem("isLoggedIn", "true");
+            navigate("/");
+        }).catch((error) => {
+            console.log(`Error: ${error}`);
+            toast.error(error.message);
+        });
     };
 
+    // input value handler
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         let _data = event.target.value;
-        console.log(`${event.target.name} : ${_data}`);
         setLoginDetails({...loginDetails, [event.target.name]: _data ?? ""})
     }
 
@@ -36,7 +43,7 @@ function LoginForm() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" name={"name"} onChange={handleChange}/>
+                    <Form.Control type="password" placeholder="Password" name={"password"} onChange={handleChange}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out"/>

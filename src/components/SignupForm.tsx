@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {User} from "../models/User";
 import {useNavigate} from "react-router-dom";
 import {UserApi} from "../api/user";
+import {toast} from 'react-toastify';
 
 function SignupForm() {
 
@@ -15,15 +16,19 @@ function SignupForm() {
     const onSubmit = () => {
         console.log(`userDetails -> ${userDetails.fullName}`);
 
-        navigate("/login");
-
-        // userApi.signUp(userDetails).then().catch();
+        userApi.signUp(userDetails).then((response) => {
+            toast.success("User added successfully");
+            navigate("/login");
+        }).catch((error) => {
+            console.log(`Error: ${error}`);
+            toast.error(error.message);
+        });
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         let _data = event.target.value;
         console.log(`${event.target.name} : ${_data}`);
-        setUserDetails({...userDetails, [event.target.name]: _data ?? ""})
+        setUserDetails({...userDetails, [event.target.name]: _data ?? ""});
     }
 
 
@@ -33,12 +38,12 @@ function SignupForm() {
             <Form>
                 <Form.Group className={"mb-3"} controlId={"formFullName"}>
                     <Form.Control type={"text"} placeholder={"Enter full name"}
-                                  name={"fullName"}
+                                  name={"fullname"}
                                   onChange={handleChange}></Form.Control>
                 </Form.Group>
 
                 <Form.Group className={"mb-3"} controlId={"formPhoneNumber"}>
-                    <Form.Control type={"text"} placeholder={"Enter phone number"} name={"phoneNumber"}
+                    <Form.Control type={"text"} placeholder={"Enter phone number"} name={"phone"}
                                   onChange={handleChange}></Form.Control>
                 </Form.Group>
 
@@ -50,7 +55,7 @@ function SignupForm() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" name={"name"} onChange={handleChange}/>
+                    <Form.Control type="password" placeholder="Password" name={"password"} onChange={handleChange}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out"/>
