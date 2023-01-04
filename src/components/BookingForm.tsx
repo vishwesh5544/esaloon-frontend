@@ -16,6 +16,8 @@ function BookingForm() {
 
     // methods
     const onSubmit = () => {
+
+
         bookingApi.createBooking(appointmentDetails).then((response) => {
             console.log(response);
             alert("Appointment placed successfully");
@@ -30,6 +32,7 @@ function BookingForm() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         let _data = event.target.value;
         setAppointmentDetails({...appointmentDetails, [event.target.name]: _data ?? ""})
+
     }
 
     const timeSlots = []
@@ -49,10 +52,11 @@ function BookingForm() {
                 <Form.Group className="mb-3" controlId="formBasicTimePicker">
                     {/*<Form.Control type="email" placeholder="Enter email" name={"time_from"} onChange={handleChange}/>*/}
                     <Form.Control as="select"
-                                  type="email" placeholder="Enter email" name={"time_from"} onChange={handleChange}>
+                                  type="email" placeholder="Enter email" name={"time_from"} onChange={handleChange}
+                                  defaultValue={"09:00"}>
                         {timeSlots.map((slot, index) => {
                                 return <option value={slot}>{slot}
-                                    <input type={"hidden"} name={"time_from"} value={slot} onChange={handleChange}/>
+                                    <input type={"hidden"} name={"time_from"} value={slot}/>
                                 </option>
 
                             }

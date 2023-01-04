@@ -19,7 +19,7 @@ function LoginForm() {
             localStorage.setItem("token", response.data["response"]["token"]);
             localStorage.setItem("email", response.data["response"]["email"]);
             localStorage.setItem("isLoggedIn", "true");
-            navigate("/");
+            navigate("/dashboard");
         }).catch((error) => {
             console.log(`Error: ${error}`);
             toast.error(error.message);
