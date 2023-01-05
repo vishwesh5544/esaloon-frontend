@@ -35,7 +35,7 @@ const UserNavbar = () => {
     const logoutUser = () => {
         localStorage.clear();
 
-        navigate(0);
+        navigate("/");
     }
 
     return (

@@ -2,6 +2,7 @@ import NavigationBar from "../components/NavigationBar";
 import {Col, Row} from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import LoginForm from "../components/LoginForm";
+import SaloonImg from "../images/carousel/saloon-0.jpg";
 
 function Login() {
     return (
@@ -12,8 +13,8 @@ function Login() {
                     <Col md="3">
                         <LoginForm/>
                     </Col>
-                    <Col>
-                        Some image here
+                    <Col md={"5"}>
+                        <img src={SaloonImg} style={{height: 250, width: 600}}/>
                     </Col>
                 </Row>
             </Container>
