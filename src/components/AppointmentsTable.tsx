@@ -43,6 +43,8 @@ function AppointmentsTable() {
                 <tr>
                     <th>ID</th>
                     <th>Timing</th>
+                    <th>Date</th>
+                    <th>Service</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -53,6 +55,8 @@ function AppointmentsTable() {
                             <tr>
                                 <td>{appointment["id"]}</td>
                                 <td>{appointment["time_from"]}</td>
+                                <td>{appointment["date"]}</td>
+                                <td>{appointment["service"]}</td>
                                 <td><Button variant={"danger"}
                                             onClick={() => removeAppointment(appointment["email"], appointment["id"])}>Remove
                                     appointment</Button></td>
